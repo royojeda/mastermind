@@ -9,7 +9,7 @@ class Game
 
   def initialize
     @board = Board.new
-    @which_guess = 1
+    @which_guess = 7
     @guesses = Array.new(12)
   end
 
@@ -23,9 +23,10 @@ class Game
   def make_guesses
     while which_guess <= 12
       current_guess = take_guess
+      board.update(current_guess)
+      board.display
       break if board.guess_correct?(current_guess)
 
-      current_guess = []
       which_guess += 1
     end
   end
@@ -33,7 +34,7 @@ class Game
   def take_guess
     puts display_prompt_guess
     input = Array.new(4)
-    input.map! { |number| number = gets.chomp.to_i }
+    input.map! { gets.chomp.to_i }
     guesses[which_guess - 1] = Guess.new(input, which_guess)
     return guesses[which_guess - 1] if guesses[which_guess - 1].valid?
 
