@@ -25,8 +25,11 @@ class Board
     | [ #{past_guesses[10][0]} | #{past_guesses[10][1]} | #{past_guesses[10][2]} | #{past_guesses[10][3]} ] | [   |   |   |   ] |
     | [ #{past_guesses[11][0]} | #{past_guesses[11][1]} | #{past_guesses[11][2]} | #{past_guesses[11][3]} ] | [   |   |   |   ] |
     +---------+-------------------+---------+
+
+              +-------------------+
               | [ #{code[0]} | #{code[1]} | #{code[2]} | #{code[3]} ] |
               +-------------------+
+
     TEXT
   end
 

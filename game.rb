@@ -9,7 +9,7 @@ class Game
 
   def initialize
     @board = Board.new
-    @which_guess = 7
+    @which_guess = 1
     @guesses = Array.new(12)
   end
 
@@ -27,7 +27,7 @@ class Game
       board.display
       break if board.guess_correct?(current_guess)
 
-      which_guess += 1
+      self.which_guess += 1
     end
   end
 
@@ -49,7 +49,7 @@ class Game
   attr_writer :which_guess
 
   def display_result
-    if which_guess == 12
+    if which_guess == 13
       puts display_game_lost
     else
       puts display_game_won(guesses[which_guess - 1])
