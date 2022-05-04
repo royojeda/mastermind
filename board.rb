@@ -1,4 +1,6 @@
 class Board
+  attr_reader :past_guesses
+
   def initialize
     @code = Array.new(4)
     @past_guesses = Array.new(12, Array.new(4, ' '))
@@ -24,7 +26,7 @@ class Board
     | [ #{past_guesses[9][0]} | #{past_guesses[9][1]} | #{past_guesses[9][2]} | #{past_guesses[9][3]} ] | [   |   |   |   ] |
     | [ #{past_guesses[10][0]} | #{past_guesses[10][1]} | #{past_guesses[10][2]} | #{past_guesses[10][3]} ] | [   |   |   |   ] |
     | [ #{past_guesses[11][0]} | #{past_guesses[11][1]} | #{past_guesses[11][2]} | #{past_guesses[11][3]} ] | [   |   |   |   ] |
-    +---------+-------------------+---------+
+    +-------------------+-------------------+
 
               +-------------------+
               | [ #{code[0]} | #{code[1]} | #{code[2]} | #{code[3]} ] |
@@ -43,5 +45,6 @@ class Board
 
   private
 
-  attr_accessor :code, :past_guesses
+  attr_accessor :code
+  attr_writer :past_guesses
 end
