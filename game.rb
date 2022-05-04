@@ -17,7 +17,7 @@ class Game
     board.randomize_code
     board.display
     make_guesses
-    display_result
+    announce_result
   end
 
   def make_guesses
@@ -48,7 +48,7 @@ class Game
 
   attr_writer :which_guess
 
-  def display_result
+  def announce_result
     if which_guess == 13
       puts display_game_lost
     else
