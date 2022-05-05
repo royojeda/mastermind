@@ -16,39 +16,43 @@ class Game
 
   def play
     if role == 'breaker'
-      play_breaker
+      setup_breaker
     else
-      play_maker
+      setup_maker
     end
+    board.display
+    make_guesses
     announce_result
   end
 
-  def play_breaker
+  def setup_breaker
     board.randomize_code
-    board.display
-    make_guesses
   end
 
-  def play_maker
+  def setup_maker
     puts display_prompt_code
     input = gets.chomp.to_i.digits.reverse
     board.change_code(input)
-    board.display
-    get_computer_guesses
   end
 
   def make_guesses
     while which_guess <= 12
-      current_guess = take_guess
+      current_guess = if role == 'breaker'
+                        player_guess
+                      else
+                        compute_guess
+                      end
       board.update(current_guess)
       board.display
+      puts 'Standby'
+      input = gets.chomp.to_i.digits.reverse
       break if board.guess_correct?(current_guess)
 
       self.which_guess += 1
     end
   end
 
-  def take_guess
+  def player_guess
     puts display_prompt_guess
     input = gets.chomp.to_i.digits.reverse
     make_and_validate(input)
@@ -61,11 +65,16 @@ class Game
     system 'clear'
     board.display
     puts display_invalid_guess
-    take_guess
+    make_guesses
   end
 
-  def get_computer_guesses
-
+  def compute_guess
+    computer_guess = case which_guess
+                     when 1
+                       1111
+                     end
+    input = computer_guess.digits.reverse
+    make_and_validate(input)
   end
 
   private
