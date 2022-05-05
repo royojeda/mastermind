@@ -15,24 +15,24 @@ class Game
   end
 
   def play
-    if role == 'breaker'
-      setup_breaker
-    else
-      setup_maker
-    end
+    input = if role == 'breaker'
+              setup_breaker
+            else
+              setup_maker
+            end
+    board.change_code(input)
     board.display
     make_guesses
     announce_result
   end
 
   def setup_breaker
-    board.randomize_code
+    Array.new(4).map { rand(1..6) }
   end
 
   def setup_maker
     puts display_prompt_code
-    input = gets.chomp.to_i.digits.reverse
-    board.change_code(input)
+    gets.chomp.to_i.digits.reverse
   end
 
   def make_guesses
@@ -44,8 +44,10 @@ class Game
                       end
       board.update(current_guess)
       board.display
-      puts 'Standby'
-      input = gets.chomp.to_i.digits.reverse
+      if role == 'maker'
+        puts 'Standby'
+        input = gets.chomp.to_i.digits.reverse
+      end
       break if board.guess_correct?(current_guess)
 
       self.which_guess += 1

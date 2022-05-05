@@ -9,10 +9,6 @@ class Board
     12.times { feedback.push([' ', ' ', ' ', ' ']) }
   end
 
-  def randomize_code
-    code.map! { rand(1..6) }
-  end
-
   def display
     system 'clear'
     puts <<-TEXT
