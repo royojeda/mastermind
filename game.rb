@@ -16,18 +16,25 @@ class Game
 
   def play
     if role == 'breaker'
-      board.randomize_code
-      board.display
-      make_guesses
+      play_breaker
     else
-      puts display_prompt_code
-      input = gets.chomp.to_i.digits.reverse
-      board.change_code(input)
-      board.display
-      puts 'Standby'
-      input = gets.chomp.to_i.digits.reverse
+      play_maker
     end
     announce_result
+  end
+
+  def play_breaker
+    board.randomize_code
+    board.display
+    make_guesses
+  end
+
+  def play_maker
+    puts display_prompt_code
+    input = gets.chomp.to_i.digits.reverse
+    board.change_code(input)
+    board.display
+    get_computer_guesses
   end
 
   def make_guesses
@@ -44,7 +51,10 @@ class Game
   def take_guess
     puts display_prompt_guess
     input = gets.chomp.to_i.digits.reverse
-    # input.map! { |number| number = gets.chomp.to_i }
+    make_and_validate(input)
+  end
+
+  def make_and_validate(input)
     guesses[which_guess - 1] = Guess.new(input, which_guess)
     return guesses[which_guess - 1] if guesses[which_guess - 1].valid?
 
@@ -52,6 +62,10 @@ class Game
     board.display
     puts display_invalid_guess
     take_guess
+  end
+
+  def get_computer_guesses
+
   end
 
   private
