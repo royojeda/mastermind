@@ -81,6 +81,10 @@ class Board
     past_guesses[guess.which - 1] = guess.value
   end
 
+  def change_code(input)
+    self.code = input
+  end
+
   private
 
   attr_accessor :code

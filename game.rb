@@ -20,7 +20,12 @@ class Game
       board.display
       make_guesses
     else
-      puts 'computer guesses here'
+      puts display_prompt_code
+      input = gets.chomp.to_i.digits.reverse
+      board.change_code(input)
+      board.display
+      puts 'Standby'
+      input = gets.chomp.to_i.digits.reverse
     end
     announce_result
   end

@@ -19,4 +19,9 @@ module Display
   def display_invalid_guess
     'Invalid guess. Please enter numbers from 1 to 6: '
   end
+
+  def display_prompt_code
+    system 'clear'
+    'Please enter a code of four digits, each ranging from 1 to 6: '
+  end
 end
