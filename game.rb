@@ -5,18 +5,23 @@ require_relative 'guess'
 class Game
   include Display
 
-  attr_reader :board, :which_guess, :guesses
+  attr_reader :board, :which_guess, :guesses, :role
 
-  def initialize
+  def initialize(role)
     @board = Board.new
     @which_guess = 1
     @guesses = Array.new(12)
+    @role = role
   end
 
   def play
-    board.randomize_code
-    board.display
-    make_guesses
+    if role == 'breaker'
+      board.randomize_code
+      board.display
+      make_guesses
+    else
+      puts 'computer guesses here'
+    end
     announce_result
   end
 

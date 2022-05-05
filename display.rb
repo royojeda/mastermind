@@ -1,4 +1,9 @@
 module Display
+  def display_role_choice
+    system 'clear'
+    'Do you want to play as the code maker (1)? or the code breaker (2)?'
+  end
+
   def display_prompt_guess
     'Enter a guess: '
   end
