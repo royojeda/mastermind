@@ -38,8 +38,8 @@ class Game
 
   def take_guess
     puts display_prompt_guess
-    input = Array.new(4)
-    input.map! { |number| number = gets.chomp.to_i }
+    input = gets.chomp.to_i.digits.reverse
+    # input.map! { |number| number = gets.chomp.to_i }
     guesses[which_guess - 1] = Guess.new(input, which_guess)
     return guesses[which_guess - 1] if guesses[which_guess - 1].valid?
 
