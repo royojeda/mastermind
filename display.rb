@@ -1,6 +1,6 @@
 module Display
   def display_prompt_guess
-    'Enter your guess: '
+    'Enter a guess: '
   end
 
   def display_game_lost

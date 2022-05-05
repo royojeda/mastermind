@@ -49,9 +49,16 @@ class Board
   end
 
   def check_includes(current_guess)
-    current_guess.value.reduce(0) do |total, peg|
-      code.include?(peg) ? (total + 1) : total
+    temp_code = code.map(&:clone)
+    current_guess.value.each do |peg|
+      temp_code.each_with_index do |value, i|
+        if peg == value
+          temp_code.delete_at(i)
+          break
+        end
+      end
     end
+    4 - temp_code.length
   end
 
   def update_feedback(exact, partial, which_guess)
@@ -65,7 +72,6 @@ class Board
       feedback[which_guess - 1][i] = 'P'
       i += 1
     end
-    p feedback
   end
 
   def update(guess)
