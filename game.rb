@@ -82,10 +82,16 @@ class Game
   attr_writer :which_guess, :guess
 
   def announce_result
-    if which_guess <= 12
-      puts display_game_won(self, guess)
+    board.reveal_code
+    if role == 'breaker'
+      board.reveal_code
+      if which_guess <= 12
+        puts display_game_won(self)
+      else
+        puts display_game_lost
+      end
     else
-      puts display_game_lost
+      puts display_computer_won(self)
     end
   end
 end

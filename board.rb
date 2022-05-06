@@ -1,8 +1,9 @@
 class Board
-  attr_reader :past_guesses, :feedback
+  attr_reader :past_guesses, :feedback, :shown_code
 
   def initialize
     @code = Array.new(4)
+    @shown_code = ['*', '*', '*', '*']
     @past_guesses = []
     12.times { past_guesses.push([' ', ' ', ' ', ' ']) }
     @feedback = []
@@ -29,10 +30,16 @@ class Board
     +-------------------+-------------------+
 
               +-------------------+
-              | [ #{code[0]} | #{code[1]} | #{code[2]} | #{code[3]} ] |
+              | [ #{shown_code[0]} | #{shown_code[1]} | #{shown_code[2]} | #{shown_code[3]} ] |
               +-------------------+
 
     TEXT
+  end
+
+  def reveal_code
+    self.shown_code = code
+    system 'clear'
+    display
   end
 
   def guess_correct?(guess)
@@ -88,5 +95,5 @@ class Board
   private
 
   attr_accessor :code
-  attr_writer :past_guesses, :feedback
+  attr_writer :past_guesses, :feedback, :shown_code
 end
