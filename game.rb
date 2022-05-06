@@ -1,16 +1,17 @@
 require_relative 'board'
 require_relative 'display'
 require_relative 'guess'
+require_relative 'computer'
 
 class Game
   include Display
 
-  attr_reader :board, :which_guess, :role, :guess
+  attr_reader :board, :which_guess, :role, :guess, :computer
 
   def initialize(role)
     @board = Board.new
-    @which_guess = 1
     @guess = Guess.new
+    @which_guess = 1
     @role = role
   end
 
@@ -31,17 +32,19 @@ class Game
   end
 
   def setup_maker
+    @computer = Computer.new
     puts display_prompt_code
     gets.chomp.to_i.digits.reverse
   end
 
   def make_guesses
     while which_guess <= 12
-      if role == 'breaker'
-        player_guess
-      else
-        compute_guess
-      end
+      input = if role == 'breaker'
+                player_guess
+              else
+                computer.guess
+              end
+      guess.update_guess(input)
       board.update(guess, which_guess)
       break if board.guess_correct?(guess)
 
@@ -55,22 +58,12 @@ class Game
     make_and_validate(input)
   end
 
-  def compute_guess
-    computer_guess = case which_guess
-                     when 1
-                       1111
-                     end.digits.reverse
-    guess.update_guess(computer_guess)
-  end
-
   def make_and_validate(input)
-    if input.all? { |number| number.between?(1, 6) }
-      guess.update_guess(input)
-    else
-      board.display
-      puts display_invalid_guess
-      make_guesses
-    end
+    return input if input.all? { |number| number.between?(1, 6) }
+
+    board.display
+    puts display_invalid_guess
+    make_guesses
   end
 
   private
