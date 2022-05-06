@@ -82,12 +82,8 @@ class Computer
       step_three
     when 4
       step_four
-    # when 5
-    #   step_five
-    else
-      p exact
-      puts 'standby'
-      gets
+    when 5
+      step_five
     end
   end
 
@@ -152,6 +148,13 @@ class Computer
       [c, d, b, a]
     when [2, 1, 1, 0]
       [c, b, a, d]
+    end
+  end
+
+  def step_five
+    case exact
+    when [1, 1, 0, 0, 0]
+      [d, a, c, b]
     end
   end
 
