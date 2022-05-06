@@ -78,8 +78,8 @@ class Computer
       p step_one(board)
     when 2
       step_two(board)
-    # when 3
-    #   step_three
+    when 3
+      step_three(board)
     # when 4
     #   step_four
     # when 5
@@ -107,13 +107,36 @@ class Computer
     when [0, 0]
       [c, d, a, b]
     when [0, 2]
-      [c, d, b, a]
+      [b, c, d, a]
     when [1, 0]
       [b, d, c, a]
     when [1, 1]
       [a, d, b, c]
+    when [2, 0]
+      [b, a, c, d]
     when [2, 1]
       [a, c, b, d]
+    end
+  end
+
+  def step_three(board)
+    case exact
+    when [0, 0, 0]
+      [d, c, b, a]
+    when [0, 0, 2]
+      [c, d, b, a]
+    when [0, 2, 0]
+      [d, a, b, c]
+    when [0, 2, 1]
+      [b, d, a, c]
+    when [1, 0, 0]
+      [c, a, b, d]
+    when [1, 1, 0]
+      [b, c, a, d]
+    when [2, 1, 0]
+      [d, b, c, a]
+    when [2, 1, 1]
+      [a, d, c, b]
     end
   end
 
