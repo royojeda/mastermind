@@ -12,6 +12,7 @@ class Board
   def display
     system 'clear'
     puts <<-TEXT
+
     +-------------------+-------------------+
     | [ #{past_guesses[0][0]} | #{past_guesses[0][1]} | #{past_guesses[0][2]} | #{past_guesses[0][3]} ] | [ #{feedback[0][0]} | #{feedback[0][1]} | #{feedback[0][2]} | #{feedback[0][3]} ] |
     | [ #{past_guesses[1][0]} | #{past_guesses[1][1]} | #{past_guesses[1][2]} | #{past_guesses[1][3]} ] | [ #{feedback[1][0]} | #{feedback[1][1]} | #{feedback[1][2]} | #{feedback[1][3]} ] |
@@ -34,27 +35,29 @@ class Board
     TEXT
   end
 
-  def guess_correct?(current_guess)
-    current_guess.value == code
+  def guess_correct?(guess)
+    guess.value == code
   end
 
-  def check_matches(current_guess)
-    current_guess.value.each_with_index.reduce(0) do |total, (peg, index)|
+  def check_matches(guess)
+    guess.value.each_with_index.reduce(0) do |total, (peg, index)|
       peg == code[index] ? (total + 1) : total
     end
   end
 
-  def check_includes(current_guess)
-    temp_code = code.map(&:clone)
-    current_guess.value.each do |peg|
-      temp_code.each_with_index do |value, i|
+  def check_includes(guess)
+    code_copy = code.map(&:clone)
+
+    guess.value.each do |peg|
+      code_copy.each_with_index do |value, i|
         if peg == value
-          temp_code.delete_at(i)
+          code_copy.delete_at(i)
           break
         end
       end
     end
-    4 - temp_code.length
+
+    code.length - code_copy.length
   end
 
   def update_feedback(exact, partial, which_guess)
@@ -70,11 +73,12 @@ class Board
     end
   end
 
-  def update(guess)
+  def update(guess, which_guess)
     exact_matches = check_matches(guess)
     partial_matches = check_includes(guess) - exact_matches
-    update_feedback(exact_matches, partial_matches, guess.which)
-    past_guesses[guess.which - 1] = guess.value
+    update_feedback(exact_matches, partial_matches, which_guess)
+    past_guesses[which_guess - 1] = guess.value
+    display
   end
 
   def change_code(input)

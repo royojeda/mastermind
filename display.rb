@@ -12,8 +12,8 @@ module Display
     "GAME OVER! You've run out of guesses."
   end
 
-  def display_game_won(guess)
-    "CONGRATULATIONS! You've guessed #{guess.value} correctly in #{guess.which} guess/es!"
+  def display_game_won(game, guess)
+    "CONGRATULATIONS! You've guessed #{guess.value} correctly in #{game.which_guess} guess/es!"
   end
 
   def display_invalid_guess

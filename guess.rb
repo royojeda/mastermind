@@ -1,12 +1,15 @@
 class Guess
-  attr_reader :value, :which
+  attr_reader :value
 
-  def initialize(value, which)
-    @value = value
-    @which = which
+  def initialize
+    @value = []
   end
 
-  def valid?
-    value.all? { |number| number.between?(1, 6) }
+  def update_guess(value)
+    self.value = value
   end
+
+  private
+
+  attr_writer :value
 end
