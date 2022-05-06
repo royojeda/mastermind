@@ -141,7 +141,18 @@ class Computer
   end
 
   def step_four
-
+    case exact
+    when [0, 0, 2, 0]
+      [d, c, a, b]
+    when [0, 2, 1, 0]
+      [c, a, d, b]
+    when [1, 0, 0, 0]
+      [d, b, a, c]
+    when [1, 1, 0, 0]
+      [c, d, b, a]
+    when [2, 1, 1, 0]
+      [c, b, a, d]
+    end
   end
 
   private
