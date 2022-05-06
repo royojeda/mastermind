@@ -1,8 +1,16 @@
 class Computer
-  attr_reader :nth_guess
+  attr_reader :nth_guess, :previous_guess, :a, :b, :c, :d, :exact, :exact_index
 
   def initialize
     @nth_guess = 0
+    @step = 0
+    @previous_guess = []
+    @exact = []
+    @a = 0
+    @b = 0
+    @c = 0
+    @d = 0
+    @exact_index = 0
   end
 
   def guess(board)
@@ -24,10 +32,10 @@ class Computer
       end
     end
 
-    previous_guess = board.past_guesses[nth_guess - 2]
+    self.previous_guess = board.past_guesses[nth_guess - 2]
 
     if feedback_number == 4
-      arrange_pegs
+      arrange_pegs(board)
     else
       previous_guess.map.with_index do |peg, index|
         if index > feedback_number - 1
@@ -39,12 +47,66 @@ class Computer
     end
   end
 
-  def arrange_pegs
-    p 'Standby'
-    input = gets
+  def arrange_pegs(board)
+    if step.zero?
+      self.a = previous_guess[0]
+      self.b = previous_guess[1]
+      self.c = previous_guess[2]
+      self.d = previous_guess[3]
+
+      self.exact_index = nth_guess - 2
+    end
+
+    self.step += 1
+
+    while exact_index <= self.nth_guess - 2
+      x = board.feedback[exact_index].reduce(0) do |total, element|
+        if element == 'P'
+          total
+        else
+          total + 1
+        end
+      end
+
+      exact.push(x)
+
+      self.exact_index += 1
+    end
+
+    case step
+    when 1
+      p step_one(board)
+    # when 2
+    #   step_two
+    # when 3
+    #   step_three
+    # when 4
+    #   step_four
+    # when 5
+    #   step_five
+    else
+      puts 'standby'
+      gets
+    end
+  end
+
+  def step_one(board)
+    case exact[0]
+    when 0
+      [b, a, d, c]
+    when 1
+      [a, c, d, b]
+    when 2
+      [a, b, d, c]
+    end
+  end
+
+  def step_two(board)
+
   end
 
   private
 
-  attr_writer :nth_guess
+  attr_writer :nth_guess, :a, :b, :c, :d, :exact, :previous_guess, :exact_index
+  attr_accessor :step
 end
