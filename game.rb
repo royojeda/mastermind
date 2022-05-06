@@ -42,7 +42,7 @@ class Game
       input = if role == 'breaker'
                 player_guess
               else
-                computer.guess
+                computer.guess(board)
               end
       guess.update_guess(input)
       board.update(guess, which_guess)
