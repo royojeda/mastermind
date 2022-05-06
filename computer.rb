@@ -76,8 +76,8 @@ class Computer
     case step
     when 1
       p step_one(board)
-    # when 2
-    #   step_two
+    when 2
+      step_two(board)
     # when 3
     #   step_three
     # when 4
@@ -85,6 +85,7 @@ class Computer
     # when 5
     #   step_five
     else
+      p exact
       puts 'standby'
       gets
     end
@@ -102,7 +103,18 @@ class Computer
   end
 
   def step_two(board)
-
+    case exact
+    when [0, 0]
+      [c, d, a, b]
+    when [0, 2]
+      [c, d, b, a]
+    when [1, 0]
+      [b, d, c, a]
+    when [1, 1]
+      [a, d, b, c]
+    when [2, 1]
+      [a, c, b, d]
+    end
   end
 
   private
