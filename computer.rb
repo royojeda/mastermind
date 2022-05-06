@@ -75,13 +75,13 @@ class Computer
 
     case step
     when 1
-      p step_one(board)
+      p step_one
     when 2
-      step_two(board)
+      step_two
     when 3
-      step_three(board)
-    # when 4
-    #   step_four
+      step_three
+    when 4
+      step_four
     # when 5
     #   step_five
     else
@@ -91,7 +91,7 @@ class Computer
     end
   end
 
-  def step_one(board)
+  def step_one
     case exact[0]
     when 0
       [b, a, d, c]
@@ -102,7 +102,7 @@ class Computer
     end
   end
 
-  def step_two(board)
+  def step_two
     case exact
     when [0, 0]
       [c, d, a, b]
@@ -119,7 +119,7 @@ class Computer
     end
   end
 
-  def step_three(board)
+  def step_three
     case exact
     when [0, 0, 0]
       [d, c, b, a]
@@ -138,6 +138,10 @@ class Computer
     when [2, 1, 1]
       [a, d, c, b]
     end
+  end
+
+  def step_four
+
   end
 
   private
