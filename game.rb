@@ -16,6 +16,7 @@ class Game
   end
 
   def play
+    system 'clear'
     input = if role == 'breaker'
               setup_breaker
             else
@@ -34,7 +35,17 @@ class Game
   def setup_maker
     @computer = Computer.new
     puts display_prompt_code
-    gets.chomp.to_i.digits.reverse
+    input = gets.chomp.to_i.digits.reverse
+    validate_code(input)
+  end
+
+  def validate_code(input)
+    if input.length == input.uniq.length
+      input
+    else
+      system 'clear'
+      setup_maker
+    end
   end
 
   def make_guesses

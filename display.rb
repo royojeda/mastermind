@@ -24,7 +24,6 @@ module Display
   end
 
   def display_prompt_code
-    system 'clear'
-    'Please enter a code of four digits, each ranging from 1 to 6: '
+    "Please enter a code of four digits, each ranging from 1 to 6: \n(For now, repeating digits are not fully supported in code maker mode)"
   end
 end
