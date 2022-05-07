@@ -37,6 +37,15 @@ class Game
     @computer = Computer.new
     puts display_prompt_code
     input = gets.chomp.to_i.digits.reverse
+    validate_code(input)
+  end
+
+  def validate_code(input)
+    return input if input.all? { |number| number.between?(1, 6) }
+
+    system 'clear'
+    puts display_invalid_code
+    setup_maker
   end
 
   def make_guesses
@@ -56,8 +65,7 @@ class Game
 
   def player_guess
     puts display_prompt_guess
-    input = gets.chomp.to_i.digits.reverse
-    make_and_validate(input)
+    gets.chomp.to_i.digits.reverse
   end
 
   def make_and_validate(input)

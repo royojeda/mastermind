@@ -44,25 +44,25 @@ class Board
     guess.value == code
   end
 
-  def check_matches(guess)
-    guess.value.each_with_index.reduce(0) do |total, (peg, index)|
-      peg == code[index] ? (total + 1) : total
+  def check_matches(guess, answer)
+    guess.each_with_index.reduce(0) do |total, (peg, index)|
+      peg == answer[index] ? (total + 1) : total
     end
   end
 
-  def check_includes(guess)
-    code_copy = code.map(&:clone)
+  def check_includes(guess, answer)
+    copy = answer.clone
 
-    guess.value.each do |peg|
-      code_copy.each_with_index do |value, i|
+    guess.each do |peg|
+      copy.each_with_index do |value, i|
         if peg == value
-          code_copy.delete_at(i)
+          copy.delete_at(i)
           break
         end
       end
     end
 
-    code.length - code_copy.length
+    answer.length - copy.length
   end
 
   def update_feedback(exact, partial, which_guess)
@@ -79,8 +79,8 @@ class Board
   end
 
   def update(guess, which_guess)
-    exact_matches = check_matches(guess)
-    partial_matches = check_includes(guess) - exact_matches
+    exact_matches = check_matches(guess.value, code)
+    partial_matches = check_includes(guess.value, code) - exact_matches
     update_feedback(exact_matches, partial_matches, which_guess)
     past_guesses[which_guess - 1] = guess.value
     display
