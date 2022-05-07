@@ -1,8 +1,10 @@
 class Computer
+  attr_reader :nth_guess
+
   def initialize
     @nth_guess = 0
     @step = 0
-    @list = list_permutations
+    @list = []
   end
 
   def list_permutations
@@ -10,5 +12,18 @@ class Computer
   end
 
   def guess(board)
+    self.nth_guess += 1
+
+    if self.nth_guess == 1
+      [1, 1, 2, 2]
+    else
+      list = list_permutations
+      puts 'standby'
+      gets
+    end
   end
+
+  private
+
+  attr_writer :nth_guess, :list
 end

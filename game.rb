@@ -23,6 +23,7 @@ class Game
               setup_maker
             end
     board.change_code(input)
+    board.reveal_code if role == 'maker'
     board.display
     make_guesses
     announce_result
@@ -36,16 +37,6 @@ class Game
     @computer = Computer.new
     puts display_prompt_code
     input = gets.chomp.to_i.digits.reverse
-    validate_code(input)
-  end
-
-  def validate_code(input)
-    if input.length == input.uniq.length
-      input
-    else
-      system 'clear'
-      setup_maker
-    end
   end
 
   def make_guesses
@@ -82,7 +73,6 @@ class Game
   attr_writer :which_guess, :guess
 
   def announce_result
-    board.reveal_code
     if role == 'breaker'
       board.reveal_code
       if which_guess <= 12

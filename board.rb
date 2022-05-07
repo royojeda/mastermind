@@ -37,9 +37,7 @@ class Board
   end
 
   def reveal_code
-    self.shown_code = code
-    system 'clear'
-    display
+    self.shown_code = code.clone
   end
 
   def guess_correct?(guess)
