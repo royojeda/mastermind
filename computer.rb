@@ -9,13 +9,18 @@ class Computer
   end
 
   def guess(board)
-    sleep(1.5)
+    sleep(1.25)
     self.nth_guess += 1
 
-    x_real = board.feedback[nth_guess - 2].tally['X'].to_i
-    p_real = board.feedback[nth_guess - 2].tally['P'].to_i
-
     if self.nth_guess != 1
+      x_real = board.feedback[nth_guess - 2].reduce(0) do |total, peg|
+        peg == 'X' ? total + 1 : total
+      end
+
+      p_real = board.feedback[nth_guess - 2].reduce(0) do |total, peg|
+        peg == 'P' ? total + 1 : total
+      end
+
       list.select! do |possible_code|
         x_count = board.check_matches(current_guess, possible_code)
         p_count = board.check_includes(current_guess, possible_code) - x_count
